@@ -21,4 +21,21 @@ public class CircularQueue<Item> extends LinkedQueue<Item> {
         first.previous = last;
         N++;
     }
+
+    @Override
+    public void delete(Node<Item> deleteNode){
+        Node<Item> preNode = deleteNode.previous;
+        Node<Item> nextNode = deleteNode.next;
+        preNode.next = nextNode;
+        nextNode.previous = preNode;
+        if (deleteNode==first){
+            //System.out.println("df");
+            first = nextNode;
+        }else if (deleteNode==last){
+            //System.out.println("dl");
+            last = preNode;
+        }
+        deleteNode = null;
+        N--;
+    }
 }

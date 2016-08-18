@@ -96,12 +96,14 @@ public class LinkedList<Item> implements Iterable<Item>{
     public void delete(Node<Item> deleteNode){
         Node<Item> preNode = deleteNode.previous;
         Node<Item> nextNode = deleteNode.next;
-        if(preNode!=null)
+        if(deleteNode!=first)
             preNode.next = nextNode;
         else
             first = nextNode;
-        if(nextNode!=null)
+        if(deleteNode!=last)
             nextNode.previous = preNode;
+        else
+            preNode.next = null;
         deleteNode = null;
         N--;
     }

@@ -1,6 +1,8 @@
 package cn.adonis.algorithms;
 
 import cn.adonis.algorithms.linkedlist.LinkedList;
+import cn.adonis.algorithms.node.Node;
+import cn.adonis.algorithms.queues.CircularQueue;
 import cn.adonis.algorithms.queues.LinkedQueue;
 import cn.adonis.algorithms.stacks.LinkedStack;
 
@@ -11,23 +13,34 @@ import java.util.Random;
 public class Main {
 
     public static void main(String[] args) {
-        //String test = "[()]{}{[()()]()}";
-        //String test = "[(])";
-//        String test = "[5*(2+3)+(4-8)]*(9-6]";
-//        System.out.print(parentheses(test));
-//        int[] a = {1,2,3,4,5,6,7,8,9,0};
-//        int[] b = shuffle(a);
-//        for(int c: b){
-//            System.out.print(c+",");
+//        LinkedList<Integer> list = new LinkedList<>();
+//        for (int i=0; i<10; i++){
+//            list.addTail(i);
 //        }
-        LinkedList<Integer> list = new LinkedList<>();
-        for (int i=0; i<10; i++){
-            list.addTail(i);
+//        Object[] a =  list.toArray();
+//        for(Object c: a){
+//           System.out.print(c+",");
+//        }
+        josephus(7,2);
+    }
+
+    public static void josephus(int n, int m){
+        CircularQueue<Integer> queue = new CircularQueue<>();
+        for (int i=0; i<n; i++){
+            queue.enqueue(i);
         }
-        Object[] a =  list.toArray();
-        for(Object c: a){
-           System.out.print(c+",");
+        Node<Integer> node = queue.getFirst();
+        while (queue.size()>1){
+            for (int j=0; j<m; j++){
+                if (j!=0)
+                    node = node.next;
+            }
+            System.out.print(node.value+",");
+            queue.delete(node);
+            node = node.next;
         }
+        System.out.println();
+        System.out.print(queue.getFirst().value);
     }
 
     public static int[] shuffle (int[] items){
